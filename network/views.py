@@ -12,13 +12,28 @@ def index(request):
     allPosts = Post.objects.all().order_by("id").reverse()
 
     # Pagination
-    paginator = Paginator(allPosts, 1)
+    paginator = Paginator(allPosts, 10)
     page_number = request.GET.get('page')
     posts_of_the_page = paginator.get_page(page_number)
 
     return render(request, "network/index.html", {
         "allPosts": allPosts,
         "posts_of_the_page": posts_of_the_page
+    })
+
+def profile(request, user_id):
+    user = User.objects.get(pk=user_id)
+    allPosts = Post.objects.filter(user=user).order_by("id").reverse()
+
+    # Pagination
+    paginator = Paginator(allPosts, 10)
+    page_number = request.GET.get('page')
+    posts_of_the_page = paginator.get_page(page_number)
+
+    return render(request, "network/profile.html", {
+        "allPosts": allPosts,
+        "posts_of_the_page": posts_of_the_page,
+        "username": user.username
     })
 
     
