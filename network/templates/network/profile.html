@@ -13,13 +13,13 @@
                         <form action="{% url 'unfollow' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="userfollow" value="{{ user_profile }}" />
-                            <input type="submit" value="Unfollow" />
+                            <input type="submit" class="btn btn-danger" value="Unfollow" />
                         </form>
                     {% else %}
                         <form action="{% url 'follow' %}" method="post">
                             {% csrf_token %}
-                            <input type="hidden" name="userfollow" value="{{ user_profile }}" />
-                            <input type="submit" value="Follow" />
+                            <input type="hidden"  name="userfollow" value="{{ user_profile }}" />
+                            <input type="submit"  class="btn btn-success" value="Follow" />
                         </form>
 
                     {% endif %}
@@ -31,7 +31,7 @@
     <div class="all-posts">
         {% for post in posts_of_the_page %}
             <div class="row post" >
-                <h5 class="username">@{{ post.user }}</h5>
+                <h5 class="username"><a href="{% url 'profile' user_id=post.user.id %}">@{{ post.user }}</a></h5>
                 <h6>{{ post.content }}</h6>
                 <p class="date">{{ post.date }}</p>
             </div>
