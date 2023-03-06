@@ -8,10 +8,11 @@
             if(parts.length == 2) return parts.pop().split(';').shift();
         }
 
-        function submmitHandler(id) {
+        function submitHandler(id) {
             const textareaValue = document.getElementById(`textarea_${id}`).value
-            const textareaValue = document.getElementById(`textarea_${id}`).value
-            const textareaValue = document.getElementById(`textarea_${id}`).value
+            const content = document.getElementById(`content_${id}`);
+            const modal = document.getElementById(`modal_edit_post_${id}`);
+            
 
             fetch(`/edit/${id}`, {
                 method: "POST",
@@ -22,7 +23,7 @@
             })
             .then(response => response.json())
             .then(result =>
-                console.log(result)
+                content.innerHTML = result.data;
             )
         }
     </script>
@@ -56,7 +57,7 @@
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Post</h1>
+                              <h1 class="modal-title fs-5" id="modal_edit_post_{{ post.id }}">Edit Post</h1>
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -64,7 +65,7 @@
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                              <button type="button" class="btn btn-primary" onclick="submmitHandler({{ post.id }})">Save changes</button>
+                              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="submitHandler({{ post.id }})">Save changes</button>
                             </div>
                           </div>
                         </div>
