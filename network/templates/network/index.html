@@ -8,10 +8,10 @@
             if(parts.length == 2) return parts.pop().split(';').shift();
         }
 
-        function submitHandler(id) {
-            const textareaValue = document.getElementById(`textarea_${id}`).value
+        function submitHandler(id){
+            const textareaValue = document.getElementById(`textarea_${id}`).value;
             const content = document.getElementById(`content_${id}`);
-            const modal = document.getElementById(`modal_edit_post_${id}`);
+            const modal = document.getElementById(`modal_edit_post_${id}`); 
             
 
             fetch(`/edit/${id}`, {
@@ -22,10 +22,11 @@
                 })
             })
             .then(response => response.json())
-            .then(result =>
+            .then(result => {
                 content.innerHTML = result.data;
-            )
+            }) 
         }
+
     </script>
 
 
